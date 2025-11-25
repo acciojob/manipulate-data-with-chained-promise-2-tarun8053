@@ -1,59 +1,39 @@
 //your JS code here. If required.
 
-// Step 0: Initial array
 let arr = [1, 2, 3, 4];
 
-// Create output div
-let body = document.querySelector("body");
-let div = document.createElement("div");
-div.id = "output";
-body.appendChild(div);
+let outputDiv = document.getElementById("output");
 
-
-const initialPromise = () => {
-  return new Promise((res) => {
+// FIRST PROMISE → returns even numbers after 1 second
+const promise1 = () => {
+  return new Promise((resolve) => {
     setTimeout(() => {
-      res(arr);      
-    }, 3000);
+      let evens = arr.filter(n => n % 2 === 0);
+      resolve(evens);
+    }, 1000);   // 1 sec
   });
 };
 
-
-const filterEvenPromise = (nums) => {
-  return new Promise((res) => {
+// SECOND PROMISE → multiplies by 2 after 2 seconds
+const promise2 = (nums) => {
+  return new Promise((resolve) => {
     setTimeout(() => {
-      let evens = nums.filter(x => x % 2 === 0);
-      res(evens);
-    }, 1000);
+      let doubled = nums.map(n => n * 2);
+      resolve(doubled);
+    }, 2000);   // 2 sec
   });
 };
-
-
-const multiplyPromise = (nums) => {
-  return new Promise((res) => {
-    setTimeout(() => {
-      let doubled = nums.map(x => x * 2);
-      res(doubled);
-    }, 2000);
-  });
-};
-
 
 async function run() {
   try {
-    // Step 1: Wait for 3 seconds
-    const data0 = await initialPromise();
+    const step1 = await promise1();     // 1 sec
+    outputDiv.innerText = step1;        // "2,4"
 
-    // Step 2: Filter (1 sec)
-    const data1 = await filterEvenPromise(data0);
-    div.innerHTML = data1;  
+    const step2 = await promise2(step1);  // +2 sec
+    outputDiv.innerText = step2;          // "4,8"
 
-    // Step 3: Multiply (2 sec)
-    const data2 = await multiplyPromise(data1);
-    div.innerHTML = data2;  
-
-  } catch (e) {
-    console.log(e);
+  } catch (err) {
+    console.log(err);
   }
 }
 
