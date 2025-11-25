@@ -9,16 +9,16 @@ let div = document.createElement("div");
 div.id = "output";
 body.appendChild(div);
 
-// Step 1: Initial Promise - resolves after 3 seconds with the array
+
 const initialPromise = () => {
   return new Promise((res) => {
     setTimeout(() => {
-      res(arr);       // return the full array after 3 sec
+      res(arr);      
     }, 3000);
   });
 };
 
-// Step 2: Filter even numbers (after 1 second)
+
 const filterEvenPromise = (nums) => {
   return new Promise((res) => {
     setTimeout(() => {
@@ -28,7 +28,7 @@ const filterEvenPromise = (nums) => {
   });
 };
 
-// Step 3: Multiply even numbers by 2 (after 2 seconds)
+
 const multiplyPromise = (nums) => {
   return new Promise((res) => {
     setTimeout(() => {
@@ -38,7 +38,7 @@ const multiplyPromise = (nums) => {
   });
 };
 
-// RUN the chain using async/await
+
 async function run() {
   try {
     // Step 1: Wait for 3 seconds
@@ -46,11 +46,11 @@ async function run() {
 
     // Step 2: Filter (1 sec)
     const data1 = await filterEvenPromise(data0);
-    div.innerHTML = data1;  // Output: 2,4 after 1 sec
+    div.innerHTML = data1;  
 
     // Step 3: Multiply (2 sec)
     const data2 = await multiplyPromise(data1);
-    div.innerHTML = data2;  // Output: 4,8 after total 3 sec
+    div.innerHTML = data2;  
 
   } catch (e) {
     console.log(e);
